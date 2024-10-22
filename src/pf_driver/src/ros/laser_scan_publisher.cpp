@@ -5,7 +5,7 @@ LaserscanPublisher::LaserscanPublisher(std::shared_ptr<rclcpp::Node> node, std::
                                        const std::string& frame_id)
   : PFDataPublisher(config, params), node_(node)
 {
-  scan_publisher_ = node_->create_publisher<sensor_msgs::msg::LaserScan>(scan_topic, rclcpp::SensorDataQoS());
+  scan_publisher_ = node_->create_publisher<sensor_msgs::msg::LaserScan>(scan_topic, rclcpp::QoS(rclcpp::KeepLast(10)));
   header_publisher_ = node_->create_publisher<pf_interfaces::msg::PFR2000Header>("/r2000_header", 1);
   frame_id_ = frame_id;
 }
